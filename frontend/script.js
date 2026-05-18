@@ -5,6 +5,7 @@ let currentTurn = 0;
 let score = 0;
 let wait = false;
 let link = "";
+let timer = null;
 
 function displayScreen(id) {
     document.querySelectorAll('.ecran').forEach(e => e.classList.remove('ecran-actif'));
@@ -45,7 +46,7 @@ function displayTurn() {
     wait = false;
     const q = questions[currentTurn];
 
-    const timer = setInterval(() => {
+    timer = setInterval(() => {
         if (leftTime <= 0) {
             clearInterval(timer); // On arrête le timer à zéro
             checkAnswer(null, null, q.expected_answer, 0);
