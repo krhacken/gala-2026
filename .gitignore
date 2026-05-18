@@ -4,4 +4,5 @@ backend/image
 backend/seed.py
 backend/__pycache__
 docker-compose.yml
+docker-compose-krk.yml
 dockerfile
