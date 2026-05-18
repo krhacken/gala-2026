@@ -63,3 +63,7 @@ td {
 .btn-grey {
        background: #c3c3c3;
 }
+
+li {
+    list-style-type: disc;
+}

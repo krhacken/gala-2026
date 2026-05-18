@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/static/style.css" />
     <script src="/static/script.js" defer></script>
 </head>
+
 <body class="min-h-screen bg-base-200">
     <div class="min-h-screen flex items-center flex-col justify-center p-4">
         <div class="card w-full max-w-3xl bg-base-100 shadow-xl">
@@ -24,10 +25,43 @@
                         <div class="card-body gap-6">
                             <h2 class="card-title">Prêt à jouer ?</h2>
                             <p>Entre ton pseudo et lance la partie.</p>
-                            <input type="text" id="nom-joueur" placeholder="Ton pseudo..." class="input input-bordered w-full max-w-md mx-auto" />
+                            <div  class="">
+
+                                <label class="floating-label">
+                                    <span>Ton pseudo</span>
+                                    <input type="text" id="nom-joueur" placeholder="Ton pseudo" class="input input-bordered input-md w-full" />
+                                </label>
+                            </div>
+
+                            <button onclick="startGame()" class="btn btn-primary">Lancer la partie</button>
+
                             <div class="grid gap-3 sm:grid-cols-2">
-                                <button onclick="startGame()" class="btn btn-primary">Lancer la partie</button>
                                 <button onclick="window.location.href='/leaderboard'" class="btn btn-secondary">🏆 Voir le classement</button>
+                            
+                                <!-- Open the modal using ID.showModal() method -->
+                                <button class="btn btn-secondary" onclick="rules.showModal()">📝 Règles</button>
+                                <dialog id="rules" class="modal">
+                                <div class="modal-box">
+                                    <form method="dialog">
+                                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                    </form>
+                                    <h3 class="text-lg font-bold">Lisez attentivement les règles !</h3>
+                                    <p class="py-4">Des images de célébrités avec un filtre bébé vont défiler. Le but du jeu est de deviner la personne.  Une partie se joue en 10 tours. Le temps de réponse à chaque tour est limité à 10 secondes. Plus la bonne réponse est donnée rapidement, plus les points attribués sont importants. Chaque joueur peut jouer plusieurs fois. Dans ce cas, seul son meilleur score de la soirée est enregistré. Une bonne réponse rajoute entre 300 et 1000 points (en fonction du temps). Une mauvaise réponse ou une absence de réponse dans le temps imparti n'ajoute ni n'enlève aucun point.
+                                    </p>
+                                    <h3 class="text-lg font-bold text-warning">Avertissements</h3>
+                                    <p>
+
+                                        <ul>
+                                            <li>Le Kr[Hack]en décline toute responsabilité en cas de "vol" de pseudonyme. Chaque joueur est responsable de la surveillance de son pseudo.</li>
+                                            <li>Les pseudos à caractères haineux, discriminatoires, sexistes, sexuels, méchants, et tout autre truc pas bien, sont interdits. Les responsables d'activité se réservent le droit de supprimer un pseudo pour le motif "J'aime pas, j'ai envie de le supprimer"</li>
+                                            <li>Toute tentative de triche est interdite, néanmoins les responsables d'activité sont incapables de faire la différence entre un joueur astucieux et un tricheur.</li>
+                                        </ul>
+                                    </p>
+                                </div>
+                                <form method="dialog" class="modal-backdrop">
+                                    <button>close</button>
+                                </form>
+                                </dialog>
                             </div>
                         </div>
                     </div>
@@ -36,7 +70,12 @@
                         <div class="card-body gap-6">
                             <div class="flex flex-col gap-4">
                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                                    <h2 id="texte-tour" class="text-2xl font-semibold">Tour 1 / 10</h2>
+                                    <h2 id="texte-tour" class="text-2xl font-semibold">1 / 10</h2>
+                                   <span class="font-mono text-2xl">
+                                    <span  id="seconds">10</span>
+                                    :
+                                    <span id="centiseconds">9</span>
+                                </span>
                                     <span id="score-actuel" class="badge badge-outline">Score : 0</span>
                                 </div>
                                 <div class="space-y-3">
@@ -56,7 +95,7 @@
                             <div class="text-center space-y-3">
                                 <h2 class="text-3xl font-bold">Partie terminée !</h2>
                                 <img src="" id="final_image" alt="Résultat final" class="mx-auto rounded-xl shadow-sm max-h-80 object-cover" />
-                                <h3 class="text-2xl">Ton score : <span id="score-final"></span>/10</h3>
+                                <h3 class="text-2xl">Ton score : <span id="score-final"></span> points !</h3>
                             </div>
 
                             <div class="overflow-x-auto">

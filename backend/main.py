@@ -102,7 +102,7 @@ def save_score(payload: ScorePayload, session = Depends(get_session)):
         else:
             return {"message": "pas de nouveau record..."}
     else:
-        new_player = Player(name=payload.name, best=payload.score)
+        new_player = Player(name=payload.name, best=int(payload.score))
         session.add(new_player)
         session.commit()
         return {"message": "Nouveau joueur est son score enregistré"}
@@ -178,7 +178,20 @@ def get_board(session: Session = Depends(get_session)):
     return board
 
 
+@app.delete("/api/admin/player/delete/{target_id}")
+def delete_user(target_id: int, session: Session = Depends(get_session), admin: str = Depends(admin_check)):
+    target = session.get(Player, target_id)
+    
+    if not target:
+        raise HTTPException(
+            status_code=404,
+            detail = "Joueur innexistant"
+        )
 
+    session.delete(target)
+    session.commit()
+
+    return {"message": f"{target.name} supprimé"}
 
 
 @app.get('/docs', include_in_schema=False)
